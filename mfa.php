@@ -93,15 +93,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="container">
         <h2>Multi-Factor Authentication</h2>
-        <?php if (isset($error)): ?>
-            <p style="color: red;"><?php echo $error; ?></p>
-        <?php endif; ?>
+        
+        <!-- Display MFA code message with styling -->
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> Please check the file <strong>'mfa_code.txt'</strong> for your MFA code.
+        </div>
+
+        <!-- MFA Code Form -->
         <form method="POST" action="">
             <input type="text" name="mfa_code" placeholder="Enter MFA Code" required>
             <button type="submit">Verify</button>
         </form>
-        <p>Please check the file <strong>'mfa_code.txt'</strong> for your MFA code.</p>
-        <p id="timer">Time left: 30 seconds</p>
+
+        <div id="timer" class="timer">Time left: 30 seconds</div>
     </div>
 
     <footer>
