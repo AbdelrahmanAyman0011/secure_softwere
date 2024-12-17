@@ -19,18 +19,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {// Sanitizes user input using filter_
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="POST" action="">
-        Username: <input type="text" name="username" required><br>
-        Password: <input type="password" name="password" required><br>
-        <button type="submit">Register</button>
-    </form>
+    <header>
+        Secure Login System
+    </header>
+
+    <div class="container">
+        <h2>Register</h2>
+        <form method="POST" action="">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="index.php">Login here</a></p>
+    </div>
+
+    <footer>
+        &copy; 2024 Secure Login System. All Rights Reserved.
+    </footer>
 </body>
 </html>

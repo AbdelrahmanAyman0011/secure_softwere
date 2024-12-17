@@ -21,18 +21,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST" action="">
-        Username: <input type="text" name="username" required><br>
-        Password: <input type="password" name="password" required><br>
-        <button type="submit">Login</button>
-    </form>
+    <header>
+        Secure Login System
+    </header>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST" action="">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.php">Register here</a></p>
+    </div>
+
+    <footer>
+        &copy; 2024 Secure Login System. All Rights Reserved.
+    </footer>
 </body>
 </html>
