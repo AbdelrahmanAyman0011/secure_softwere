@@ -1,22 +1,21 @@
 <?php
 require 'db.php'; // Database connection
 
-$error = ''; // To store error messages
-$success = ''; // To store success messages
+$error = ''; // Initialize error message variable
+$success = ''; // Initialize success message variable
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Check if the form is submitted
     // Sanitize and validate user input
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = $_POST['password'];
+    $password = $_POST['password']; // Get the entered password
 
     // Check if username already exists in the database
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch user data from the database
 
-    if ($user) {
-        // Username already exists, show an alert
+    if ($user) { // If username already exists
         $error = "Username '$username' is already taken. Please choose a different username.";
     } else {
         // Hash the password securely
@@ -31,8 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Success message
             $success = "Registration successful! You can now log in.";
-        } catch (PDOException $e) {
-            // Handle any errors during the database operation
+        } catch (PDOException $e) { // Handle database errors
             $error = "Error: " . $e->getMessage();
         }
     }
@@ -45,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
 </head>
 <body>
     <header>
-        Secure Login System - Registration
+        Secure Login System - Registration <!-- Page header -->
     </header>
 
     <div class="container">
@@ -57,24 +55,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- Display success or error message -->
         <?php if ($error): ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
+            <div class="alert alert-danger"><?php echo $error; ?></div> <!-- Show error message -->
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="alert alert-success"><?php echo $success; ?></div>
+            <div class="alert alert-success"><?php echo $success; ?></div> <!-- Show success message -->
         <?php endif; ?>
 
-        <form method="POST" action="">
-            <input type="text" name="username" placeholder="Enter Username" required>
-            <input type="password" name="password" placeholder="Enter Password" required>
-            <button type="submit">Register</button>
+        <form method="POST" action=""> <!-- Registration form -->
+            <input type="text" name="username" placeholder="Enter Username" required> <!-- Username input -->
+            <input type="password" name="password" placeholder="Enter Password" required> <!-- Password input -->
+            <button type="submit">Register</button> <!-- Register button -->
         </form>
 
-        <p>Already have an account? <a href="index.php">Login here</a></p>
+        <p>Already have an account? <a href="index.php">Login here</a></p> <!-- Login link -->
     </div>
 
     <footer>
-        &copy; 2024 Secure Login System. All Rights Reserved.
+        &copy; 2024 Secure Login System. All Rights Reserved. <!-- Footer content -->
     </footer>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit();
+session_start(); // Start the session to access session variables
+if (!isset($_SESSION['username'])) { // Check if the user is logged in
+    header("Location: index.php"); // Redirect to login page if not logged in
+    exit(); // Stop further script execution
 }
 
 // File to store the MFA code and expiration time
@@ -53,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($saved_code)) {
         $input_code = $_POST['mfa_code'];
 
-        if ($input_code == $saved_code && time() <= $expiry_time) {
+        if ($input_code == $saved_code && time() <= $expiry_time) { // Check if MFA code is correct and not expired
             unlink($mfa_file); // Delete the file after successful verification
             unlink($expiry_file); // Delete the expiration file
-            header("Location: dashboard.php");
-            exit();
+            header("Location: dashboard.php"); // Redirect to dashboard
+            exit(); // Stop further execution after redirect
         } else {
             $error = "Invalid MFA Code or Code Expired! Please try again.";
         }
@@ -71,16 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 <head>
     <title>MFA Verification</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
     <script>
         // Timer countdown for MFA expiration
         let countdown = <?php echo isset($expiry_time) ? $expiry_time - time() : 0; ?>;
         function updateTimer() {
             if (countdown > 0) {
                 countdown--;
-                document.getElementById('timer').textContent = "Time left: " + countdown + " seconds";
+                document.getElementById('timer').textContent = "Time left: " + countdown + " seconds"; // Update timer display
             } else {
-                document.getElementById('timer').textContent = "MFA Code Expired!";
+                document.getElementById('timer').textContent = "MFA Code Expired!"; // Notify if code expired
             }
         }
         setInterval(updateTimer, 1000); // Update the timer every second
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <header>
-        Secure Login System - Multi-Factor Authentication
+        Secure Login System - Multi-Factor Authentication <!-- Page header -->
     </header>
 
     <div class="container">
@@ -101,15 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- MFA Code Form -->
         <form method="POST" action="">
-            <input type="text" name="mfa_code" placeholder="Enter MFA Code" required>
-            <button type="submit">Verify</button>
+            <input type="text" name="mfa_code" placeholder="Enter MFA Code" required> <!-- MFA code input -->
+            <button type="submit">Verify</button> <!-- Verify button -->
         </form>
 
-        <div id="timer" class="timer">Time left: 30 seconds</div>
+        <div id="timer" class="timer">Time left: 30 seconds</div> <!-- Timer display -->
     </div>
 
     <footer>
-        &copy; 2024 Secure Login System. All Rights Reserved.
+        &copy; 2024 Secure Login System. All Rights Reserved. <!-- Footer content -->
     </footer>
 </body>
 </html>
