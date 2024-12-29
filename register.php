@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Check if the form is submitted
 
         <form method="POST" action=""> <!-- Registration form -->
             <input type="text" name="username" placeholder="Enter Username" required> <!-- Username input -->
-            <input type="password" name="password" placeholder="Enter Password" required> <!-- Password input -->
+            <input type="password" name="password" placeholder="Enter Password" minlength="6" required> <!-- Password input -->
             <button type="submit">Register</button> <!-- Register button -->
         </form>
 
